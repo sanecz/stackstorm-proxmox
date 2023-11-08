@@ -215,7 +215,8 @@ class {{ class_name }}Action(ProxmoxAction):
             else:
                 if api_arg[2] == "boolean":
                     api_arg[1] = int(api_arg[1])
-                proxmox_kwargs[api_arg[0]] = api_arg[1]
+                if api_arg[0] != "node":
+                    proxmox_kwargs[api_arg[0]] = api_arg[1]
 
         return self.proxmox.{{ http_verb.lower() }}(
             f"{{ path.lstrip("/") }}",
